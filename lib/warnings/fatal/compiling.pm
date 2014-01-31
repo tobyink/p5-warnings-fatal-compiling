@@ -79,7 +79,7 @@ warnings::fatal::compiling - make warnings FATAL at compile-time only
 =head1 SYNOPSIS
 
    use strict;
-   use warnings;
+   use warnings qw(all);
    use warnings::fatal::compiling;
    
    # Use of uninitialized value.
@@ -96,7 +96,23 @@ Because it's kind of annoying if a warning stops your program from
 being compiled, but it's I<really> annoying if it breaks your program
 part way through actually executing.
 
-This pragma is lexically scoped.
+This lexically scoped pragma will make all warnings (including custom
+warnings emitted with the C<warn> keyword) FATAL during compile time.
+It does not enable or disable any warnings in its own right. It just
+makes any warnings that happen to be enabled FATAL during the compile.
+
+(Note that the compile phase an execute phase are not as cleanly
+divided in Perl as they are in, say, C. If module X loads module Y at
+run-time, then module Y's compile time happens during module X's
+run-time. In this situation, a warning that is triggered while
+compiling Y will be FATAL, even though from module X's perspective,
+this is at run-time.)
+
+This module should run pretty cleanly on Perl 5.10 and above. It will
+work on Perl 5.8.3 and above if L<Devel::Pragma> is installed. However,
+current versions of Devel::Pragma are broken on Perl older than 5.12,
+so you will need to find and install an old version of Devel::Pragma.
+I'd recommend version 0.54.
 
 =head1 BUGS
 
@@ -106,6 +122,8 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=warnings-fatal-compiling>.
 =head1 SEE ALSO
 
 L<warnings>.
+
+L<http://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Devel-Pragma-0.54.tar.gz>.
 
 =head1 AUTHOR
 
@@ -117,7 +135,6 @@ This software is copyright (c) 2014 by Toby Inkster.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
-
 
 =head1 DISCLAIMER OF WARRANTIES
 
