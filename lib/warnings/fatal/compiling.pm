@@ -8,18 +8,20 @@ our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.001';
 
 use B::Hooks::EndOfScope;
-use Devel::Pragma qw( my_hints );
+
+BEGIN { *_VERY_OLD = ($] < 5.010) ? sub{!!1} : sub{!!0} };
 
 sub import
 {
-	my $hints = my_hints;
-	$hints->{+__PACKAGE__} = 1;
+	goto _import_perl58 if _VERY_OLD;
+	
+	$^H{+__PACKAGE__} = 1;
 	
 	# Keep original signal handler
 	my $orig = $SIG{__WARN__};
 	
 	$SIG{__WARN__} = sub {
-		my $hints = my_hints;
+		my $hints = (caller(0))[10];
 		$hints->{+__PACKAGE__} ? die("@_") : $orig ? $orig->(@_) : warn(@_);
 	};
 	
@@ -30,7 +32,36 @@ sub import
 
 sub unimport
 {
+	goto _unimport_perl58 if _VERY_OLD;
+	
 	$^H{+__PACKAGE__} = 0;
+}
+
+sub _import_perl58
+{
+	require Devel::Pragma;
+	
+	my $hints = Devel::Pragma::my_hints();
+	$hints->{+__PACKAGE__} = 1;
+	
+	# Keep original signal handler
+	my $orig = $SIG{__WARN__};
+	
+	$SIG{__WARN__} = sub {
+		my $hints = Devel::Pragma::my_hints();
+		$hints->{+__PACKAGE__} ? die("@_") : $orig ? $orig->(@_) : warn(@_);
+	};
+	
+	on_scope_end {
+		$SIG{__WARN__} = $orig;
+	};
+}
+
+sub _unimport_perl58
+{
+	require Devel::Pragma;
+	
+	Devel::Pragma::my_hints()->{+__PACKAGE__} = 0;
 }
 
 1;
@@ -65,7 +96,7 @@ Because it's kind of annoying if a warning stops your program from
 being compiled, but it's I<really> annoying if it breaks your program
 part way through actually executing.
 
-This pragma is lexically scoped
+This pragma is lexically scoped.
 
 =head1 BUGS
 
@@ -73,6 +104,8 @@ Please report any bugs to
 L<http://rt.cpan.org/Dist/Display.html?Queue=warnings-fatal-compiling>.
 
 =head1 SEE ALSO
+
+L<warnings>.
 
 =head1 AUTHOR
 
