@@ -8,10 +8,12 @@ our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.001';
 
 use B::Hooks::EndOfScope;
+use Devel::Pragma qw( my_hints );
 
 sub import
 {
-	$^H{+__PACKAGE__} = 1;
+	my $hints = my_hints;
+	$hints->{+__PACKAGE__} = 1;
 	
 	# Keep original signal handler
 	my $orig = $SIG{__WARN__};
