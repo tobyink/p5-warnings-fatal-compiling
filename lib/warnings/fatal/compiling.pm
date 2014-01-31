@@ -13,7 +13,7 @@ BEGIN { *_VERY_OLD = ($] < 5.010) ? sub{!!1} : sub{!!0} };
 
 sub import
 {
-	goto _import_perl58 if _VERY_OLD;
+	goto \&_import_perl58 if _VERY_OLD;
 	
 	$^H{+__PACKAGE__} = 1;
 	
@@ -32,7 +32,7 @@ sub import
 
 sub unimport
 {
-	goto _unimport_perl58 if _VERY_OLD;
+	goto \&_unimport_perl58 if _VERY_OLD;
 	
 	$^H{+__PACKAGE__} = 0;
 }

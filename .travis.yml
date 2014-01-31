@@ -10,11 +10,11 @@ matrix:
   include:
     - perl: "5.8.3"
       install:
-        - cpanm "B::Hooks::EndOfScope" "Test::Fatal" "Test::More" "Test::Warnings"
+        - cpanm -n "B::Hooks::EndOfScope" "Test::Fatal" "Test::More" "Test::Warnings"
         - cpanm http://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Devel-Pragma-0.54.tar.gz
     - perl: "5.8.9"
       install:
-        - cpanm "B::Hooks::EndOfScope" "Test::Fatal" "Test::More" "Test::Warnings"
+        - cpanm -n "B::Hooks::EndOfScope" "Test::Fatal" "Test::More" "Test::Warnings"
         - cpanm http://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Devel-Pragma-0.54.tar.gz
 before_install:
   - "source devel.travis/travis-perlbrew"
