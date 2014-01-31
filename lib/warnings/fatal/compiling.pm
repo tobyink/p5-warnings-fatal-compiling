@@ -19,7 +19,7 @@ sub import
 	my $orig = $SIG{__WARN__};
 	
 	$SIG{__WARN__} = sub {
-		my $hints = (caller(0))[10];
+		my $hints = my_hints;
 		$hints->{+__PACKAGE__} ? die("@_") : $orig ? $orig->(@_) : warn(@_);
 	};
 	
