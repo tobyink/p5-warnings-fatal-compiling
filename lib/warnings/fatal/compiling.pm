@@ -37,6 +37,8 @@ sub unimport
 	$^H{+__PACKAGE__} = 0;
 }
 
+eval(<<'END_PERL_58') if _VERY_OLD;
+
 sub _import_perl58
 {
 	require Devel::Pragma;
@@ -63,6 +65,8 @@ sub _unimport_perl58
 	
 	Devel::Pragma::my_hints()->{+__PACKAGE__} = 0;
 }
+
+END_PERL_58
 
 1;
 
