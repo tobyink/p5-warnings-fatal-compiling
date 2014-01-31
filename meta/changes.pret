@@ -1,6 +1,6 @@
 # This file acts as the project's changelog.
 
-`warnings-fatal-compiling 0.001 cpan:TOBYINK`
-	issued  2014-01-30;
+`warnings-MaybeFatal 0.001 cpan:TOBYINK`
+	issued  2014-02-01;
 	label   "Initial release".
 

@@ -2,7 +2,7 @@ use 5.008003;
 use strict;
 use warnings;
 
-package warnings::fatal::compiling;
+package warnings::MaybeFatal;
 
 our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.001';
@@ -78,13 +78,13 @@ __END__
 
 =head1 NAME
 
-warnings::fatal::compiling - make warnings FATAL at compile-time only
+warnings::MaybeFatal - make warnings FATAL at compile-time only
 
 =head1 SYNOPSIS
 
    use strict;
    use warnings qw(all);
-   use warnings::fatal::compiling;
+   use warnings::MaybeFatal;
    
    # Use of uninitialized value.
    # Run-time warning, so this is non-fatal.
@@ -121,7 +121,7 @@ I'd recommend version 0.54.
 =head1 BUGS
 
 Please report any bugs to
-L<http://rt.cpan.org/Dist/Display.html?Queue=warnings-fatal-compiling>.
+L<http://rt.cpan.org/Dist/Display.html?Queue=warnings-MaybeFatal>.
 
 =head1 SEE ALSO
 

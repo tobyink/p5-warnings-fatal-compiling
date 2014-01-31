@@ -4,7 +4,7 @@
 
 =head1 PURPOSE
 
-Test that warnings::fatal::compiling works.
+Test that warnings::MaybeFatal works.
 
 =head1 AUTHOR
 
@@ -28,13 +28,13 @@ use Test::More;
 use Test::Warnings qw(warning);
 use Test::Fatal qw(exception);
 
-use warnings::fatal::compiling;
+use warnings::MaybeFatal;
 
 $@ = undef;
 eval q{
 	use strict;
 	use warnings;
-	use warnings::fatal::compiling;
+	use warnings::MaybeFatal;
 	"Hello world";
 	1;
 };
@@ -87,4 +87,3 @@ like(
 ) or diag explain($z2);
 
 done_testing;
-

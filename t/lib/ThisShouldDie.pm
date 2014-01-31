@@ -2,7 +2,7 @@ package ThisShouldNotDie;
 
 use strict;
 use warnings;
-use warnings::fatal::compiling;
+use warnings::MaybeFatal;
 
 "Hello World";
 

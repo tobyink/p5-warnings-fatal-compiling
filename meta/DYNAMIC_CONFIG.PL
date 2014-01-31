@@ -9,6 +9,6 @@ if ( $] < 5.010 )
 ** http://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Devel-Pragma-0.54.tar.gz
 **
 WARNING
-
+	
 	$meta->{prereqs}{runtime}{requires}{'Devel::Pragma'} = '0.54';
 }

@@ -2,10 +2,10 @@ package ThisShouldDieToo;
 
 use strict;
 use warnings;
-use warnings::fatal::compiling;
+use warnings::MaybeFatal;
 
 {
-	no warnings::fatal::compiling;
+	no warnings::MaybeFatal;
 	sub yyy { 1 };
 	sub yyy { 2 };
 }
