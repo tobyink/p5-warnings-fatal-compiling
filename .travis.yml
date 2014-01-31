@@ -2,7 +2,7 @@ language: perl
 script: HARNESS_IS_VERBOSE=1 prove -Iinc -Ilib t
 install:
   - cpanm "B::Hooks::EndOfScope" "Test::Fatal" "Test::More" "Test::Warnings"
-  - cpanm "CHOCOLATE/Devel-Pragma-0.54.tar.gz"
+  - cpanm http://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Devel-Pragma-0.54.tar.gz
 perl:
   - "5.8"
   - "5.10"
