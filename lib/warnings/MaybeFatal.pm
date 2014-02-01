@@ -105,7 +105,7 @@ warnings emitted with the C<warn> keyword) FATAL during compile time.
 It does not enable or disable any warnings in its own right. It just
 makes any warnings that happen to be enabled FATAL during the compile.
 
-(Note that the compile phase an execute phase are not as cleanly
+(Note that the compile phase and execute phase are not as cleanly
 divided in Perl as they are in, say, C. If module X loads module Y at
 run-time, then module Y's compile time happens during module X's
 run-time. In this situation, a warning that is triggered while
