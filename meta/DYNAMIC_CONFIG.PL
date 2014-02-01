@@ -1,6 +1,6 @@
 if ( $] < 5.010 )
 {
-	warn <<'WARNING'
+	warn <<'WARNING';
 **
 ** You're going to need Devel::Pragma. Unfortunately, the latest release
 ** of Devel::Pragma only works on Perl 5.12 and above. You need to get a
