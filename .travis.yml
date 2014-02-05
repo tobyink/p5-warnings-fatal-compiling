@@ -9,18 +9,23 @@ matrix:
   include:
     - perl: "5.8.3"
       install:
-        - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints" "Test::Fatal" "Test::More" "Test::Warnings"
+        - cpanm -n --force "File::Spec"
+        - cpanm -n "Test::Fatal" "Test::More" "Test::Warnings"
+        - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints"
     - perl: "5.8.9"
       install:
-        - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints" "Test::Fatal" "Test::More" "Test::Warnings"
+        - cpanm -n "Test::Fatal" "Test::More" "Test::Warnings"
+        - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints"
     - perl: "5.10"
       install:
-        - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints" "Test::Fatal" "Test::More" "Test::Warnings"
+        - cpanm -n "Test::Fatal" "Test::More" "Test::Warnings"
+        - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints"
 before_install:
   - "source devel.travis/travis-perlbrew"
   - "perlbrew install-cpanm -f"
   - "perl -V"
 install:
-  - cpanm "B::Hooks::EndOfScope" "Test::Fatal" "Test::More" "Test::Warnings"
+  - cpanm -n "Test::Fatal" "Test::More" "Test::Warnings"
+  - cpanm "B::Hooks::EndOfScope"
 script:
   - HARNESS_IS_VERBOSE=1 prove -Iinc -Ilib t
