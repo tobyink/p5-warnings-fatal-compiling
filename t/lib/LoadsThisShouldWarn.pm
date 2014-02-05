@@ -1,9 +1,9 @@
-package ThisShouldNotDie;
+package LoadsThisShouldWarn;
 
 use strict;
 use warnings;
 use warnings::MaybeFatal;
 
-"Hello World";
+use ThisShouldWarn;
 
 1;

@@ -17,6 +17,11 @@ matrix:
         - cpanm -n --force "File::Spec"
         - cpanm -n "Test::Fatal" "Test::More" "Test::Warnings"
         - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints"
+    - perl: "5.8.4"
+      install:
+        - cpanm -n --force "File::Spec"
+        - cpanm -n "Test::Fatal" "Test::More" "Test::Warnings"
+        - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints"
     - perl: "5.8.9"
       install:
         - cpanm -n "Test::Fatal" "Test::More" "Test::Warnings"
