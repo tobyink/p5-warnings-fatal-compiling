@@ -21,3 +21,16 @@
 			dcs:thanks cpan:HAARG;
 		];
 	].
+
+`warnings-MaybeFatal 0.003 cpan:TOBYINK`
+	issued  2014-02-05;
+	changeset [
+		item [
+			label "Raise Perl version dependency from 5.8.1 to 5.8.4.";
+		];
+		item [
+			a dcs:Tests;
+			label "Test that a module using warnings::MaybeFatal is able to load another module using warnings::MaybeFatal. (This test fails on Perl < 5.8.4.)";
+			dcs:thanks cpan:HAARG;
+		];
+	].
