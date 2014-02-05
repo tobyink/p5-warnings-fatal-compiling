@@ -7,22 +7,30 @@ package warnings::MaybeFatal;
 our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.001';
 
+BEGIN {
+	if ( $] < 5.012 ) {
+		require Lexical::SealRequireHints;
+		Lexical::SealRequireHints->import;
+	}
+};
+
 use B::Hooks::EndOfScope;
 
-BEGIN { *_VERY_OLD = ($] < 5.010) ? sub{!!1} : sub{!!0} };
+sub _my_hints
+{
+	$^H |= 0x20000;
+	\%^H;
+}
 
 sub import
 {
-	goto \&_import_perl58 if _VERY_OLD;
-	
-	$^H{+__PACKAGE__} = 1;
+	_my_hints->{+__PACKAGE__} = 1;
 	
 	# Keep original signal handler
 	my $orig = $SIG{__WARN__};
 	
 	$SIG{__WARN__} = sub {
-		my $hints = (caller(0))[10];
-		$hints->{+__PACKAGE__} ? die("@_") : $orig ? $orig->(@_) : warn(@_);
+		_my_hints->{+__PACKAGE__} ? die("@_") : $orig ? $orig->(@_) : warn(@_);
 	};
 	
 	on_scope_end {
@@ -32,41 +40,8 @@ sub import
 
 sub unimport
 {
-	goto \&_unimport_perl58 if _VERY_OLD;
-	
-	$^H{+__PACKAGE__} = 0;
+	_my_hints->{+__PACKAGE__} = 0;
 }
-
-eval(<<'END_PERL_58') if _VERY_OLD;
-
-sub _import_perl58
-{
-	require Devel::Pragma;
-	
-	my $hints = Devel::Pragma::my_hints();
-	$hints->{+__PACKAGE__} = 1;
-	
-	# Keep original signal handler
-	my $orig = $SIG{__WARN__};
-	
-	$SIG{__WARN__} = sub {
-		my $hints = Devel::Pragma::my_hints();
-		$hints->{+__PACKAGE__} ? die("@_") : $orig ? $orig->(@_) : warn(@_);
-	};
-	
-	on_scope_end {
-		$SIG{__WARN__} = $orig;
-	};
-}
-
-sub _unimport_perl58
-{
-	require Devel::Pragma;
-	
-	Devel::Pragma::my_hints()->{+__PACKAGE__} = 0;
-}
-
-END_PERL_58
 
 1;
 
@@ -112,12 +87,6 @@ run-time. In this situation, a warning that is triggered while
 compiling Y will be FATAL, even though from module X's perspective,
 this is at run-time.)
 
-This module should run pretty cleanly on Perl 5.10 and above. It will
-work on Perl 5.8.3 and above if L<Devel::Pragma> is installed. However,
-current versions of Devel::Pragma are broken on Perl older than 5.12,
-so you will need to find and install an old version of Devel::Pragma.
-I'd recommend version 0.54.
-
 =head1 BUGS
 
 Please report any bugs to
@@ -126,8 +95,6 @@ L<http://rt.cpan.org/Dist/Display.html?Queue=warnings-MaybeFatal>.
 =head1 SEE ALSO
 
 L<warnings>.
-
-L<http://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Devel-Pragma-0.54.tar.gz>.
 
 =head1 AUTHOR
 

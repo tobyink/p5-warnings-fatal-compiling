@@ -1,6 +1,5 @@
 language: perl
 perl:
-  - "5.10"
   - "5.12"
   - "5.14"
   - "5.16"
@@ -10,12 +9,13 @@ matrix:
   include:
     - perl: "5.8.3"
       install:
-        - cpanm -n "B::Hooks::EndOfScope" "Test::Fatal" "Test::More" "Test::Warnings"
-        - cpanm http://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Devel-Pragma-0.54.tar.gz
+        - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints" "Test::Fatal" "Test::More" "Test::Warnings"
     - perl: "5.8.9"
       install:
-        - cpanm -n "B::Hooks::EndOfScope" "Test::Fatal" "Test::More" "Test::Warnings"
-        - cpanm http://cpan.metacpan.org/authors/id/C/CH/CHOCOLATE/Devel-Pragma-0.54.tar.gz
+        - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints" "Test::Fatal" "Test::More" "Test::Warnings"
+    - perl: "5.10"
+      install:
+        - cpanm "B::Hooks::EndOfScope" "Lexical::SealRequireHints" "Test::Fatal" "Test::More" "Test::Warnings"
 before_install:
   - "source devel.travis/travis-perlbrew"
   - "perlbrew install-cpanm -f"
