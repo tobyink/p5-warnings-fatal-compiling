@@ -4,3 +4,20 @@
 	issued  2014-02-01;
 	label   "Initial release".
 
+`warnings-MaybeFatal 0.002 cpan:TOBYINK`
+	issued  2014-02-05;
+	changeset [
+		item [
+			label "Reduce Perl version dependency from 5.8.3 to 5.8.1.";
+		];
+		item [
+			label "No longer depend on Devel::Pragma for Perl 5.8.x.";
+			seealso RT#92719;
+			dcs:thanks cpan:HAARG;
+		];
+		item [
+			label "Depend on Lexical::SealRequireHints for Perl 5.8.x and 5.10.x.";
+			seealso RT#92719;
+			dcs:thanks cpan:HAARG;
+		];
+	].
