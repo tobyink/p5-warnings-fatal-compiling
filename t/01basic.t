@@ -61,7 +61,14 @@ like(
 	'warning at compile-time in another scope',
 ) or diag explain($x);
 
-my $y = exception { require ThisShouldDie };
+my $y;
+($] < 5.010)
+	? warning {  # spurious warning from Try::Tiny
+		$y = exception { require ThisShouldDie }
+	}
+	: do {
+		$y = exception { require ThisShouldDie }
+	};
 
 like(
 	$y,
@@ -73,6 +80,9 @@ my ($z1, $z2);
 $z2 = warning {
 	$z1 = exception { require ThisShouldDieToo };
 };
+
+# spurious warning from Try::Tiny
+$z2 = $z2->[0] if ref($z2) and $] < 5.010;
 
 like(
 	$z1,
