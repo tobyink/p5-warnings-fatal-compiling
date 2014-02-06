@@ -15,6 +15,7 @@ BEGIN {
 };
 
 use B::Hooks::EndOfScope;
+use Carp qw(croak);
 
 sub _my_hints
 {
@@ -28,13 +29,28 @@ sub import
 	
 	# Keep original signal handler
 	my $orig = $SIG{__WARN__};
+	my @warnings;
 	
 	$SIG{__WARN__} = sub {
-		_my_hints->{+__PACKAGE__} ? die("@_") : $orig ? $orig->(@_) : warn(@_);
+		_my_hints->{+__PACKAGE__}
+			? push(@warnings, $_[0])
+			: $orig
+				? $orig->(@_)
+				: warn(@_);
 	};
 	
 	on_scope_end {
 		$SIG{__WARN__} = $orig;
+		if (@warnings == 1)
+		{
+			die($warnings[0]);
+		}
+		elsif (@warnings)
+		{
+			warn($_) for @warnings;
+			local $Carp::CarpLevel = $Carp::CarpLevel + 1;
+			croak("Compile time warnings");
+		}
 	};
 }
 
