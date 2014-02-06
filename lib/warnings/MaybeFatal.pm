@@ -5,7 +5,7 @@ use warnings;
 package warnings::MaybeFatal;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.003';
+our $VERSION   = '0.004';
 
 BEGIN {
 	if ( $] < 5.012 ) {

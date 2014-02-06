@@ -34,3 +34,13 @@
 			dcs:thanks cpan:HAARG;
 		];
 	].
+
+`warnings-MaybeFatal 0.004 cpan:TOBYINK`
+	issued  2014-02-06;
+	changeset [
+		item [
+			label "warnings::MaybeFatal no longer dies as soon as a warning is issued. Instead, it allows the code to keep compiling, and only dies at the end of the compile if there were any warnings issued.";
+			seealso RT#92718;
+			dcs:thanks cpan:ILMARI, cpan:DAMS;
+		];
+	].

@@ -9,3 +9,9 @@ cpan:TOBYINK
 
 cpan:HAARG
 	:name  "Graham Knop".
+
+cpan:ILMARI
+	:name  "Dagfinn Ilmari Mannsåker".
+
+cpan:DAMS
+	:name  "Damien Krotkine".
