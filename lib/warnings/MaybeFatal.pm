@@ -29,14 +29,19 @@ sub import
 	
 	# Keep original signal handler
 	my $orig = $SIG{__WARN__};
-	my @warnings;
+	if (!ref($orig))
+	{
+		$orig = ($orig eq 'DEFAULT' or $orig eq 'IGNORE')
+			? undef
+			: 'main'->can($orig);
+		$orig = sub { warn(@_) } unless defined $orig;
+	}
 	
+	my @warnings;
 	$SIG{__WARN__} = sub {
 		_my_hints->{+__PACKAGE__}
 			? push(@warnings, $_[0])
-			: $orig
-				? $orig->(@_)
-				: warn(@_);
+			: $orig->(@_);
 	};
 	
 	on_scope_end {
@@ -47,7 +52,7 @@ sub import
 		}
 		elsif (@warnings)
 		{
-			warn($_) for @warnings;
+			$orig->($_) for @warnings;
 			local $Carp::CarpLevel = $Carp::CarpLevel + 1;
 			croak("Compile time warnings");
 		}
