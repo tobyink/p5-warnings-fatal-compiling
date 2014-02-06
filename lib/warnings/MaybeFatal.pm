@@ -33,7 +33,10 @@ sub import
 	{
 		$orig = ($orig eq 'DEFAULT' or $orig eq 'IGNORE')
 			? undef
-			: 'main'->can($orig);
+			: do {
+				no strict 'refs';
+				exists(&{'main::'.$orig}) ? \&{'main::'.$orig} : undef;
+			};
 		$orig = sub { warn(@_) } unless defined $orig;
 	}
 	
