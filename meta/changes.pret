@@ -44,3 +44,12 @@
 			dcs:thanks cpan:ILMARI, cpan:DAMS;
 		];
 	].
+
+`warnings-MaybeFatal 0.005 cpan:TOBYINK`
+	issued  2017-02-03;
+	changeset [
+		item [
+			label "Die a horrible, gruesome death if you try to use the pure Perl implementation of B::Hooks::EndOfScope.";
+			seealso RT#117895;
+		];
+	].
