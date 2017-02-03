@@ -17,6 +17,11 @@ BEGIN {
 use B::Hooks::EndOfScope;
 use Carp qw(croak);
 
+BEGIN {
+	B::Hooks::EndOfScope->Module::Implementation::implementation_for eq 'XS'
+		or croak("Pure Perl implementation of B::Hooks::EndOfScope not supported");
+};
+
 sub _my_hints
 {
 	$^H |= 0x20000;
